@@ -1,0 +1,41 @@
+group 'algorithm-practise'
+version '1.0-SNAPSHOT'
+
+
+apply plugin: 'java'
+apply plugin: 'scala'
+
+sourceCompatibility = 1.8
+
+[compileScala, compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.incremental = true // one flag, and things will get MUCH faster
+}
+tasks.withType(ScalaCompile) {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+tasks.withType(GroovyCompile) {
+    configure(groovyOptions.forkOptions) {
+        memoryMaximumSize = '2g'
+        jvmArgs = ['-XX:MaxPermSize=1024m', '-Xms2g', '-Xmx2g']
+    }
+}
+
+compileScala {
+    options.fork = true // Fork your compilation into a child process
+    options.forkOptions.setMemoryMaximumSize("2g") // Set maximum memory to 4g
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.scala-lang', name: 'scala-library', version: '2.11.0' //添加scala基本库
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+}
