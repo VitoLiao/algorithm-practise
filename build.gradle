@@ -1,6 +1,12 @@
+import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.api.tasks.scala.ScalaCompile
+
 group 'algorithm-practise'
 version '1.0-SNAPSHOT'
 
+
+apply plugin: 'java'
+apply plugin: 'scala'
 
 apply plugin: 'java'
 apply plugin: 'scala'
@@ -17,6 +23,7 @@ tasks.withType(ScalaCompile) {
     sourceCompatibility = "1.8"
     targetCompatibility = "1.8"
 }
+
 tasks.withType(GroovyCompile) {
     configure(groovyOptions.forkOptions) {
         memoryMaximumSize = '2g'
